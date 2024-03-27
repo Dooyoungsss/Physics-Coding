@@ -129,3 +129,38 @@
 ▶ objList.append(shpere())
   - 리스트의 데이터는 객체도 가능
 
+######################################################################################################
+< 4주차 코드 추가 설명 >
+
+# Simulation Loop
+
+while True:
+    # while 반복문 시작
+    rate(1000)    
+
+    # Forces
+    r = Earth.pos - Moon.pos
+    Moon.f = G*Earth.mass*Moon.mass/mag(r)**2*norm(r)
+    Earth.f = -Moon.f 
+        # 연산자
+        # 곱하기 * : 2*3 = 6
+        # 제곱 ** : 2**3 = 8
+
+    # Time Integration
+    Moon.v = Moon.v + Moon.f/Moon.mass*dt
+    Earth.v = Earth.v + Earth.f/Earth.mass*dt
+    Moon.pos = Moon.pos + Moon.v*dt
+    Earth.pos = Earth.pos + Earth.v*dt
+    t = t + dt    
+
+    # Collision Check
+    if Earth.radius + Moon.radius > mag(r):
+        print("Collision!")
+        print(t/60/60/24, "days")
+        break
+            # break : 반복문(while, for)을 종료 시키는 문장
+            # continue : 반복문 안에서 해당 문장 아래의 문장들은 수행하지 않고 다음 반복으로 넘어가게 하는 문장
+            # 반복문 안에서만 사용 가능
+
+    # while 반복문 끝
+
